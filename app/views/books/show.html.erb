@@ -20,7 +20,9 @@
 
           <td>
             <% @book_tags.each do |tag| %>
+            <%= link_to tag_books_path(tag_id: tag.id)
               <%=tag.name%>:<%="(#{tag.books.count})" %>
+            <% end %>
             <% end %>
           </td>
 

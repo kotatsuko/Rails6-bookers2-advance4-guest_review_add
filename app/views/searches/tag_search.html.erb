@@ -1,0 +1,41 @@
+<table class="table table-hover table-inverse">
+<h2>  search for "<%= @tag.name %>"Tag</h2>
+
+    <thead>
+      <tr>
+        <th>    </th>
+        <th>title</th>
+        <th>opinion</th>
+        <th>favorites</th>
+        <th>tags</th>
+        <th>user</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @books.each do |book| %>
+        <tr>
+          <td>    </td>
+          <td>
+            <%= link_to book_path(book.id) do %>
+            <%= book.title %>
+            <% end %>
+          </td>
+          <td><%= book.body %></td>
+          <td>♥<%= book.favorites.count %></td>
+          <td>
+            <% book.tags.each do |tag| %>
+              <%= link_to tag_books_path(tag_id: tag.id) do %>
+                <%= tag.name %>:<%= tag.books.count %>
+              <% end %>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to user_path(book.user_id) do %>
+            <%= image_tag book.user.get_profile_image,size:'50x50' %><br>
+            <%= book.user.name %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>

@@ -24,7 +24,7 @@
         </tr>
       <% end %>
     </tbody>
-  <% else %>
+  <% elsif @range == "Book" %>
     <h2>Book title search for "<%= @word %>"</h2>
     <thead>
       <tr>
@@ -32,6 +32,7 @@
         <th>title</th>
         <th>opinion</th>
         <th>favorites</th>
+        <th>tags</th>
         <th>user</th>
       </tr>
     </thead>
@@ -46,12 +47,43 @@
           </td>
           <td><%= book.body %></td>
           <td>♥<%= book.favorites.count %></td>
+
+          <td>
+            <% book.tags.each do |tag| %>
+              <%= link_to tag_books_path(tag_id: tag.id) do %>
+                <%= tag.name %>:<%= tag.books.count %>
+              <% end %>
+            <% end %>
+          </td>
+
           <td>
             <%= link_to user_path(book.user_id) do %>
             <%= image_tag book.user.get_profile_image,size:'50x50' %><br>
             <%= book.user.name %>
             <% end %>
           </td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% elsif @range == "Tag" %>
+    <h2>Tag search for "<%= @word %>"</h2>
+    <thead>
+      <tr>
+        <td>    </td>
+        <td>name</td>
+        <td>count</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tags.each do |tag| %>
+        <tr>
+          <td>    </td>
+          <td>
+            <%= link_to tag_books_path(tag_id: tag.id) do %>
+            <%= tag.name %>
+            <% end %>
+          </td>
+          <td><%= tag.books.count %></td>
         </tr>
       <% end %>
     </tbody>

@@ -1,4 +1,6 @@
-        <% tag_list.each do |list|%>
-          <span><%=list.name %></span>:
-          <span><%="(#{list.books.count})" %></span>
+        <% tag_list.each do |tag|%>
+        <%= link_to tag_books_path(tag_id: tag.id) do %>
+          <span><%=tag.name %></span>:
+          <span><%="(#{tag.books.count})" %></span>
+        <% end %>
         <% end %>
