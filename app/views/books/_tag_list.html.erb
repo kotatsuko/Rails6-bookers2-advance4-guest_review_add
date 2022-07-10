@@ -1,0 +1,4 @@
+        <% tag_list.each do |list|%>
+          <span><%=list.name %></span>:
+          <span><%="(#{list.books.count})" %></span>
+        <% end %>
