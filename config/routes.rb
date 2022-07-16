@@ -4,12 +4,16 @@ Rails.application.routes.draw do
   root to: "homes#top"
   get "home/about"=>"homes#about"
   get "search" => "searches#search"
+
   devise_for :users
   resources :books, only: [:index,:show,:edit,:create,:destroy,:update] do
     resource :favorites, only: [:create, :destroy]
     resources :book_comments, only: [:create, :destroy]
   end
   get "books/favorited/desc" => "books#index_favorited_desc" ,as: "books_favorited_desc"
+  resources :tags do
+    get "books" , to: "searches#tag_search"
+  end
 
   resources :users, only: [:index,:show,:edit,:update]do
     resource :relationships, only: [:create, :destroy]
