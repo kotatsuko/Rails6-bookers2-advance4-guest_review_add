@@ -10,14 +10,19 @@ class BooksController < ApplicationController
   def index
     @tag_list=Tag.all
     @book=Book.new
-    @books = Book.all
-    @books_favorited_desc=Book.find(Favorite.group(:book_id).order('count(book_id) desc').pluck(:book_id))
+    @books = Book.all.order(created_at: :desc)
   end
 
   def index_favorited_desc
     @tag_list=Tag.all
     @book=Book.new
     @books= Book.includes(:favorites).sort {|a,b| b.favorites.size <=> a.favorites.size}
+  end
+
+  def index_star_desc
+    @tag_list=Tag.all
+    @book=Book.new
+    @books = Book.all.order(star: :desc)
   end
 
   def create

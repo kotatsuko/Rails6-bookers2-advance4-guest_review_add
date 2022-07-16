@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :book_comments, only: [:create, :destroy]
   end
   get "books/favorited/desc" => "books#index_favorited_desc" ,as: "books_favorited_desc"
+  get "index/star/desc" => "books#index_star_desc", as: "books_star_desc"
   resources :tags do
     get "books" , to: "searches#tag_search"
   end
